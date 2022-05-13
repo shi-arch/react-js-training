@@ -127,13 +127,13 @@ const Login = (props) => {
                     // onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
                 /> */}
-                {/* <FacebookLogin
+                <FacebookLogin
                     appId="1022482148392327"
                     autoLoad={true}
                     fields="name,email,picture"
                     //onClick={componentClicked}
                     //callback={responseFacebook} 
-                    /> */}
+                    />
                 <label>Email:</label><InputBox name={"email"} changeFun={changeFun} type={"email"} value={registerObj.email} placeholder={"Enter your Email"} />
                 <p style={{ color: "red" }}>{err && err.type == "email" ? err.err : ""}</p>
                 <label>Password:</label><InputBox name={"password"} changeFun={changeFun} type={"password"} value={registerObj.password} placeholder={"Enter your Password"} />
