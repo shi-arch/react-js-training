@@ -8,6 +8,7 @@ import { validateEmail, phonenumber } from '../contants/constants'
 import { useNavigate, useLocation } from "react-router-dom"
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import img from '../assets/view.png'
 import swal from 'sweetalert';
 
 const Login = (props) => {
@@ -18,7 +19,9 @@ const Login = (props) => {
     const [email, setEmail] = useState("")
     const [show, setShow] = useState(false)
     const [showVeri, setShowVeri] = useState(false)
-    const [type, setType] = useState("password")    
+    const [type2, setType2] = useState("password")
+    const [type1, setType1] = useState("password")
+
     const [password, setPassword] = useState({})
 
     useEffect(() => {
@@ -50,7 +53,7 @@ const Login = (props) => {
     }
     const validate = () => {
         let isValid = true
-        if(!emailValidation()){
+        if (!emailValidation()) {
             isValid = false
         } else if (!registerObj.password) {
             isValid = false
@@ -82,7 +85,7 @@ const Login = (props) => {
     }
     const setEmailStr = (e) => {
         const { value, name } = e.target
-       setEmail(value)
+        setEmail(value)
         //setEmail(value)
     }
     const passwordValidation = () => {
@@ -92,7 +95,6 @@ const Login = (props) => {
             isValid = false
             setErr({ err: "Please enter the new password", type: "newPass" })
         } else if (password.newPass && (!regularExpression.test(password.newPass))) {
-            debugger
             isValid = false
             setErr({ err: "Your password must have length 6 to 16 and must have a number and special character", type: "newPass" })
         } else if (!password.confirmPass) {
@@ -127,13 +129,13 @@ const Login = (props) => {
                     // onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
                 /> */}
-                <FacebookLogin
+                {/* <FacebookLogin
                     appId="1022482148392327"
                     autoLoad={true}
                     fields="name,email,picture"
                     //onClick={componentClicked}
                     //callback={responseFacebook} 
-                    />
+                    /> */}
                 <label>Email:</label><InputBox name={"email"} changeFun={changeFun} type={"email"} value={registerObj.email} placeholder={"Enter your Email"} />
                 <p style={{ color: "red" }}>{err && err.type == "email" ? err.err : ""}</p>
                 <label>Password:</label><InputBox name={"password"} changeFun={changeFun} type={"password"} value={registerObj.password} placeholder={"Enter your Password"} />
@@ -152,7 +154,7 @@ const Login = (props) => {
                     </Modal.Header>
                     <Modal.Body>
                         <InputBox name={"email"} changeFun={setEmailStr} type={"email"} placeholder={"Enter your registered email id"} />
-                        <span style={{color: "red"}}>{err.err}</span>
+                        <span style={{ color: "red" }}>{err.err}</span>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
@@ -160,11 +162,11 @@ const Login = (props) => {
                         </Button>
                         <Button variant="primary" onClick={() => {
                             const validation = forgotEmailValidation()
-                            if(validation){
+                            if (validation) {
                                 setShow(false)
                                 swal("Verification!", "verification code has sent to your email id", "success");
                                 setShowVeri(true)
-                            }                            
+                            }
                         }}>
                             Send verification link
                         </Button>
@@ -175,28 +177,42 @@ const Login = (props) => {
                         <Modal.Title>Forgot Password</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img onClick={() => {
-                            if(type == "password"){
-                                setType("text")
+                        {
+                            type1 == "text" ? <span style={{ right: "25px", top: "21px", position: "absolute" }}>-----</span> : ""
+                        }
+                        {
+                            type2 == "text" ? <span style={{ right: "25px", top: "60px", position: "absolute" }}>-----</span> : ""
+                        }
+
+                        <img style={{ position: "absolute", width: "23px", right: "30px", top: "23px" }} onClick={() => {
+                            if (type1 == "password") {
+                                setType1("text")
                             } else {
-                                setType("password")
-                            }                                
-                        }} src="../assets/view.png" />
-                        <InputBox style={{ marginBottom: "21px" }} changeFun={setPasswordDetails} name={"newPass"} type={"password"} placeholder={"Enter new password"} />
+                                setType1("password")
+                            }
+                        }} src={img} />
+                        <InputBox style={{ marginBottom: "21px" }} type={type1} changeFun={setPasswordDetails} name={"newPass"} placeholder={"Enter new password"} />
                         <p style={{ color: "red", marginTop: "-20px" }}>{err && err.type == "newPass" ? err.err : ""}</p>
-                        <InputBox name={"confirmPass"} type={type} changeFun={setPasswordDetails} placeholder={"Confirm password"} />
+                        <img style={{ position: "absolute", width: "23px", right: "30px", top: "62px" }} onClick={() => {
+                            if (type2 == "password") {
+                                setType2("text")
+                            } else {
+                                setType2("password")
+                            }
+                        }} src={img} />
+                        <InputBox name={"confirmPass"} type={type2} changeFun={setPasswordDetails} placeholder={"Confirm password"} />
                         <p style={{ color: "red" }}>{err && err.type == "confirmPass" ? err.err : ""}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => 
+                        <Button variant="secondary" onClick={() =>
                             setShowVeri(false)
                         }>
                             Close
                         </Button>
                         <Button variant="primary" onClick={() => {
-                            if(passwordValidation()){
+                            if (passwordValidation()) {
                                 setShowVeri(false)
-                            }                            
+                            }
                         }}>
                             Save password
                         </Button>
