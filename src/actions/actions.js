@@ -11,3 +11,9 @@ export function increment(data) {
  export function reset() {
     return { type: 'RESET' }
  }
+
+ export function registerFun(data) {
+   return { type: 'REGISTER', payload: data }
+}
+
+ 

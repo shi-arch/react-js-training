@@ -1,6 +1,7 @@
 const initialState = {
     test1: [],
-    test2: []
+    test2: [],
+    registerObj: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +12,9 @@ const reducer = (state = initialState, action) => {
             return { ...state, test2: action.payload }
         case 'RESET':
             return { ...state, test3: action.payload }
+        case 'REGISTER':
+            debugger
+            return { ...state, registerObj: action.payload }
         default:
             return state
     }

@@ -9,7 +9,7 @@ import { createStore } from 'redux';
 import reducer from './reducer/redux'
 
 const store = createStore(
-  reducer,
+  reducer
 )
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
