@@ -24,11 +24,11 @@ const Login = (props) => {
 
     const [password, setPassword] = useState({})
 
-    useEffect(() => {
-        if (location && !location.state) {
-            navigate("/")
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (location && !location.state) {
+    //         navigate("/")
+    //     }
+    // }, [])
     const emailValidation = () => {
         let isValid = true
         if (!registerObj.email) {
@@ -68,6 +68,7 @@ const Login = (props) => {
         const checkValid = validate()
         if (checkValid) {
             swal("Login!", "Login successfull", "success");
+            navigate("/dashboard")            
         }
     }
     const handleClose = () => {

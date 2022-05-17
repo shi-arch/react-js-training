@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import Register from './component/register'
 import Login from './component/login'
+import Dashboard from './component/dashboard'
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,6 +17,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

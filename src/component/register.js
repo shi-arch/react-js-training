@@ -13,10 +13,10 @@ const Register = (props) => {
     const [tr1, setTr1] = useState("")
     const [err, setErr] = useState({})
     const [email, setEmail] = useState("")
-    const [registerObj, setRegisterObj] = useState({})
-
+    
     const validate = () => {
         let isValid = true
+        const registerObj = props.reduxData.registerObj
         var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
         if (!registerObj.fName) {
             setErr({ err: "Please enter the first name", type: "fName" })
@@ -90,6 +90,7 @@ const Register = (props) => {
     ]
     const changeFun = (e) => {
         const { value, name } = e.target
+        const registerObj = props.reduxData.registerObj 
         let obj = { ...registerObj };
         //let obj = registerObj
         obj[name] = value
@@ -108,7 +109,7 @@ const Register = (props) => {
                 <p style={{ color: "red" }}>{err && err.type == "lName" ? err.err : ""}</p>
                 <label>Email:</label><InputBox name={"email"} changeFun={changeFun} type={"text"} value={props.reduxData.registerObj.email} placeholder={"Enter your Email"} />
                 <p style={{ color: "red" }}>{err && err.type == "email" ? err.err : ""}</p>
-                <label>Contact:</label><InputBox name={"contact"} changeFun={changeFun} type={"text"} value={props.reduxData.registerObj.contact} placeholder={"Enter your Contact"} />
+                <label>Contact:</label><InputBox name={"contact"} changeFun={changeFun} type={"number"} value={props.reduxData.registerObj.contact} placeholder={"Enter your Contact"} />
                 <p style={{ color: "red" }}>{err && err.type == "contact" ? err.err : ""}</p>
                 <Row className="mx-0">
                     <Button style={{ marginTop: "30px", marginBottom: "60px" }} onClick={() => {
